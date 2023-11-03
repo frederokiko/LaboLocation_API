@@ -13,10 +13,11 @@ namespace LaboLocation_API.LaboLocation_DAL.Services
         {
             _connection = connection;
         }
-        public void CreateProprietaire(AddProprietaire pr)
+         public int CreateProprietaire(AddProprietaire pr)
         {
-            string sql = "INSERT INTO Proprietaire(Id_personne)VALUES(@id_personne)";
-            _connection.Query(sql, pr);
+            string sql = "INSERT INTO Proprietaire(Id_personne)VALUES(@id_personne)" +
+                         "SELECT CAST(SCOPE_IDENTITY() AS INT)"; 
+            return _connection.Query<int>(sql, pr).Single();
         }
 
         public IEnumerable<Proprietaire> GetAll()
@@ -30,6 +31,11 @@ namespace LaboLocation_API.LaboLocation_DAL.Services
         {
             string sql = "SELECT pr.Id_proprietaire,p.Id_personne,p.Nom,p.Prenom,p.Email,p.Id_role\r\nFROM Proprietaire pr JOIN Personne p\r\nON pr.Id_personne = p.Id_personne WHERE pr.Id_proprietaire = @id";
             return _connection.QueryFirst<Proprietaire>(sql, new { id });
+        }
+        public int GetByIdPers(int id)
+        {
+            string sql = "SELECT Id_proprietaire FROM Proprietaire WHERE Id_personne = @id";
+            return _connection.QueryFirst<int>(sql, new { id });
         }
     }
 }

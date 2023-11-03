@@ -27,16 +27,21 @@ namespace LaboLocation_API.Controllers
         {
             return Ok(_proprietaireService.GetById(id));
         }
+        [HttpGet("pers{idpers}")]
+        public IActionResult Getpers(int idpers)
+        {
+            return Ok(_proprietaireService.GetByIdPers(idpers));
+        }
         [HttpPost]
         public IActionResult Post(AddEmploye pr)
         {
 
-            _proprietaireService.CreateProprietaire(
+            int insertedId = _proprietaireService.CreateProprietaire(
                 new AddProprietaire
                 {
                     Id_personne = pr.Id_personne
                 });
-            return Ok();
+            return Ok(insertedId);
         }
     }
 }

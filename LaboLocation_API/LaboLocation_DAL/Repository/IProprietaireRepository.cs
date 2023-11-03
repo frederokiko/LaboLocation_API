@@ -5,8 +5,9 @@ namespace LaboLocation_API.LaboLocation_DAL.Repository
 {
     public interface IProprietaireRepository
     {
-        void CreateProprietaire(AddProprietaire pr);
+        int CreateProprietaire(AddProprietaire pr);
         IEnumerable<Proprietaire> GetAll();
         Proprietaire GetById(int id);
+       int GetByIdPers(int id);
     }
 }

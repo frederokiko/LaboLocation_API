@@ -39,7 +39,7 @@ namespace LaboLocation_API.LaboLocation_DAL.Services
 
         public IEnumerable<Photo> GetAllByIdGarage(int id)
         {
-            string sql = " SELECT*  FROM Photos p Join Photo_garage pg  ON p.Id_photos=pg.Id_photos JOIN Garage g ON pg.Id_garage= g.Id_garage  WHERE g.Id_garage=@id";
+            string sql = " SELECT*  FROM Photos p Join Photo_garage pg  ON p.Id_photos=pg.Id_photos WHERE pg.Id_garage=@id";
             return _connection.Query<Photo>(sql, new { id });
         }
     }

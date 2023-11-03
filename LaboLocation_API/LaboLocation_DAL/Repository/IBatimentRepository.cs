@@ -5,11 +5,12 @@ namespace LaboLocation_API.LaboLocation_DAL.Repository
 {
     public interface IBatimentRepository
     {
-        void CreateBatiment(NewBatiment ba);
+        int CreateBatiment(NewBatiment ba);
         IEnumerable<Batiment> GetAll();
         Batiment GetById(int id);
-        Batiment GetByApp(bool choix);
-        Batiment GetByMai(bool choix);
+        Batiment GetByIdBat(int id);
+        IEnumerable<Batiment> GetByApp(bool choix);
+        IEnumerable<Batiment> GetByMai(bool choix);
         void SetBatiment(int id_bien, bool type_maison,bool type_appartement,bool charge_comprise,bool chauffage_central);
     }
 }

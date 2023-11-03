@@ -13,20 +13,22 @@ namespace LaboLocation_API.LaboLocation_DAL.Services
         {
             _connection = connection;
         }
-        public void CreateBien(NewBien bi)
+        public int CreateBien(NewBien bi)
         {
-            string sql = "INSERT INTO Bien (Rue,Numero,Localite,Codepostal,Est_louer,Location_prix,Disponible,Caution_txt,Caution_montant,Id_proprietaire)VALUES(@rue,@numero,@localite,@codepostal,@est_louer,@location_prix,@disponible,@caution_txt,@caution_montant,@id_proprietaire)";
-            _connection.Query(sql, bi);
+            string sql = "INSERT INTO Bien (Rue, Numero, Localite, Codepostal, Est_louer, Location_prix, Disponible, Caution_txt, Caution_montant, Id_proprietaire) " +
+                         "VALUES (@rue, @numero, @localite, @codepostal, @est_louer, @location_prix, @disponible, @caution_txt, @caution_montant, @id_proprietaire);" +
+                         "SELECT CAST(SCOPE_IDENTITY() AS INT)";
+            return _connection.Query<int>(sql, bi).Single();
         }
 
         public IEnumerable<Bien> GetAll()
         {
             return _connection.Query<Bien>("SELECT * FROM Bien");
         }
-        public Bien GetById(int id)
+        public IEnumerable<Bien> GetById(int id)
         {
             string sql = "SELECT * FROM Bien WHERE Id_bien = @id";
-            return _connection.QueryFirst<Bien>(sql, new { id });
+            return _connection.Query<Bien>(sql, new { id });
         }
 
         public IEnumerable<Bien> GetByCp(int cp)
@@ -35,10 +37,10 @@ namespace LaboLocation_API.LaboLocation_DAL.Services
             return _connection.Query<Bien>(sql, new { cp });
         }
 
-        public IEnumerable<Bien> GetByPrix(int prix)
+        public IEnumerable<Bien> GetByPrix(int min,int max)
         {
-            string sql = "SELECT * FROM Bien WHERE Location_prix = @prix";
-            return _connection.Query<Bien>(sql, new { prix });
+            string sql = "SELECT * FROM Bien WHERE Location_prix BETWEEN @min AND @max";
+            return _connection.Query<Bien>(sql, new { min , max });
         }
 
         public void SetBien(int id_bien, bool est_louer, int location_prix, DateTime disponible, string caution_txt, int caution_montant)

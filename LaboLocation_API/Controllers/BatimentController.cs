@@ -28,12 +28,17 @@ namespace LaboLocation_API.Controllers
         {
             return Ok(_batimentService.GetById(id));
         }
-        [HttpGet("/app{choix}")]
+        [HttpGet("bien{id}")]
+        public IActionResult GetBat(int id)
+        {
+            return Ok(_batimentService.GetByIdBat(id));
+        }
+        [HttpGet("app{choix}")]
         public IActionResult Getapp(bool choix)
         {
             return Ok(_batimentService.GetByApp(choix));
         }
-        [HttpGet("/mai{choix}")]
+        [HttpGet("mai{choix}")]
         public IActionResult Getmai(bool choix)
         {
             return Ok(_batimentService.GetByMai(choix));
@@ -48,7 +53,7 @@ namespace LaboLocation_API.Controllers
         public IActionResult Post(NewBatiment ba)
         {
 
-            _batimentService.CreateBatiment(
+            int insertedId = _batimentService.CreateBatiment(
                 new NewBatiment
                 {
                     Type_maison = ba.Type_maison,
@@ -58,7 +63,10 @@ namespace LaboLocation_API.Controllers
                     Id_bien = ba.Id_bien,
 
                 });
-            return Ok();
+            //int insertedId = _batimentService.CreateBatiment(ba);
+            return Ok(insertedId);
         }
     }
 }
+//int insertedId = _bienService.CreateBien(bi);
+//return Ok(insertedId);

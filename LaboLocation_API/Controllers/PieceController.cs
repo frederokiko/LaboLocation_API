@@ -23,7 +23,7 @@ namespace LaboLocation_API.Controllers
             return Ok(_pieceService.GetAll());
         }
 
-        [HttpGet("/bat{pi}")]
+        [HttpGet("bat{pi}")]
         public IActionResult GetBati(int pi)
         {
             return Ok(_pieceService.GetBybat(pi));

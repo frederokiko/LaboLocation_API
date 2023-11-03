@@ -27,7 +27,7 @@ namespace LaboLocation_API.Controllers
         {
             return Ok(_photoService.GetAllById(id));
         }
-        [HttpGet("/gar{id}")]
+        [HttpGet("gar{id}")]
         public IActionResult GetIdGarage(int id)
         {
             return Ok(_photoService.GetAllByIdGarage(id));

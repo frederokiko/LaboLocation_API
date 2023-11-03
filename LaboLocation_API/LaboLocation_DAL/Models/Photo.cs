@@ -5,7 +5,7 @@
         public int Id_photos { get; set; }
         public string Nom { get; set; }
         public string Photos { get; set; }
-        public int Id_Pieces { get; set; }
+        public int? Id_Pieces { get; set; }
     }
 }
 //Id_photos INT,

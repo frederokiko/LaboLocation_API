@@ -21,8 +21,13 @@ namespace LaboLocation_API.Tools
 
             Claim[] userInfo = new[]
             {
-                new Claim(ClaimTypes.Role,
-                        (p.Id_role == 3 ? "Admin" : p.Id_role == 2 ? "Modo" : "User")),
+                new Claim(ClaimTypes.Role,(
+                   p.Id_role == 1 ? "Admin" :
+                   p.Id_role == 2 ? "Prop" :
+                   p.Id_role == 3 ? "Loc" :
+                   p.Id_role == 4 ? "User" : "Unknown"
+                
+                        /*p.Id_role == 3 ? "Admin" : p.Id_role == 2 ? "Modo" : "User"*/)),
                 new Claim(ClaimTypes.Sid, p.Id_personne.ToString()),
                 new Claim(ClaimTypes.Email, p.Email)
             };

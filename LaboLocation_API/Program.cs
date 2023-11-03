@@ -40,9 +40,13 @@ builder.Services.AddScoped<TokenGenerator>();
 builder.Services.AddAuthorization(o =>
 {
     o.AddPolicy("AdminPolicy", option => option.RequireRole("Admin"));
-    o.AddPolicy("ModoPolicy", option => option.RequireRole("Admin", "Modo"));
+    o.AddPolicy("PropPolicy", option => option.RequireRole("Admin", "Prop"));
+    o.AddPolicy("LocPolicy", option => option.RequireRole("Admin", "Loc"));
+    o.AddPolicy("UserPolicy", option => option.RequireRole("User"));
     o.AddPolicy("UserPolicy", option => option.RequireAuthenticatedUser());
 });
+
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(option =>

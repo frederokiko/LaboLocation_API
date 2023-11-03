@@ -22,17 +22,17 @@ namespace LaboLocation_API.Controllers
         {
             return Ok(_bienService.GetAll());
         }
-        [HttpGet("/cp{cp}")]
+        [HttpGet("cp{cp}")]
         public IActionResult GetCP(int cp)
         {
             return Ok(_bienService.GetByCp(cp));
         }
-        [HttpGet("/prix{prix}")]
-        public IActionResult GetPrix(int prix)
+        [HttpGet("prix")]
+        public IActionResult GetPrix(int min,int max)
         {
-            return Ok(_bienService.GetByPrix(prix));
+            return Ok(_bienService.GetByPrix(min , max));
         }
-        [HttpGet("/id{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             return Ok(_bienService.GetById(id));
@@ -47,7 +47,7 @@ namespace LaboLocation_API.Controllers
         public IActionResult Post(NewBien bi)
         {
 
-            _bienService.CreateBien(
+            int insertedId = _bienService.CreateBien(
                 new NewBien
                 {
                     Rue =bi.Rue,
@@ -61,7 +61,8 @@ namespace LaboLocation_API.Controllers
                     Caution_montant=bi.Caution_montant,
                     Id_proprietaire=bi.Id_proprietaire,                    
                 });
-            return Ok();
+            //int insertedId = _bienService.CreateBien(bi);
+            return Ok(insertedId);
         }
     }
 }
